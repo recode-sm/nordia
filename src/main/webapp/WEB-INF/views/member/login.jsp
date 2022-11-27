@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <link rel="shortcut icon" href="https://cdn.playforum.net/image/logo/favicon.png"> -->
-<!-- CSS only -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/icon/d4.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/foundation.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.foundation.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/webfonts.min.css">
@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/design.style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontello.css">
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/foundation.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/md5.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 
 <style type="text/css">
 /* 사이트 기본 색 */
@@ -41,6 +45,16 @@
 
 </style>
 
+<script type="text/javascript">
+	$(document).ready(function(){		
+	//		loginform.getloadCookieId();
+		$('#id_save', 'form#loginForm').on('click', function(e) {
+			loginform.alertIdSaveCookie();	
+		});
+	});
+
+</script>
+
 <title>로그인 - nordia</title>
 </head>
 <body>
@@ -56,7 +70,7 @@
 			<div class="mb-container">
 				<h1 class="mb-titles">회원로그인</h1>
 				<!-- 로그인 폼 //-->
-				<form name="loginForm" id="loginForm" method="post" action="https://www.playforum.net/member/login.php">
+				<form name="loginForm" id="loginForm" method="post" action="loginAct">
 					<input type="hidden" name="backUrl" value="">
 			
 					<fieldset>
@@ -99,12 +113,38 @@
 				</form>
 				<!--// 로그인 폼 -->
 	
-				<a href="${pageContext.request.contextPath}/member/join" class="mb-joins-link">아직 플레이포럼 회원이 아닌가요? <span class="user-point">회원가입</span></a>
+				<a href="join" class="mb-joins-link">아직 플레이포럼 회원이 아닌가요? <span class="user-point">회원가입</span></a>
 
 		</div>
+		
+		
+<script>	
+	var loginform = {
+		$_user_id:$('#user_id', 'form#loginForm'),
+		$_user_pw:$('#user_pw', 'form#loginForm'),
+		$_id_save:$('#id_save', 'form#loginForm'),
+		checkLogin:function(){
+			if(this.$_user_id.val() == ''){
+				$("#loginForm-div-p").html('아이디를 입력하세요');
+				$("#loginForm-div").removeClass('success').addClass('alert').show();
+				this.$_user_id.focus();
+				return false;
+			}
+			if(this.$_user_pw.val() == ''){
+				$("#loginForm-div-p").html('비밀번호를 입력하세요');
+				$("#loginForm-div").removeClass('success').addClass('alert').show();
+				this.$_user_pw.focus();
+				return false;
+			}
+	
+			$("form[name=loginForm]").submit();
+		}		
+	}	
+</script>
+		
 		<footer class="mb-footer">
 			©
-			<span class="user-point">플레이포럼</span>			All rights reserved.
+			<span class="user-point">노르디아</span>			All rights reserved.
 		</footer>
 	</div>
 </div>
