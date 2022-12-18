@@ -3,21 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itwillbs.member.MemberMapper">
-	
+
 	<!-- 회원가입 -->
-	<insert id="insertMember" parameterType="java.util.Map">
-		INSERT INTO nordia.member (user_id, user_pw, email, tel, letter, job_dt)
-		VALUES (#{user_id}, #{user_pw}, #{email}, #{tel}, #{letter}, NOW())
+	<insert id="insertMember" parameterType="com.member.MemberDTO">
+		INSERT INTO bbs.user (userID, userPassword, userName, userGender, userEmail)
+		VALUES (#{userID}, #{userPassword}, #{userName}, #{userGender}, #{userEmail})
 	</insert>
 	
-	<!-- 아이디 중복체크 -->
-	<select id="selectMemberCheck" parameterType="java.util.Map" resultType="com.nordia.member.MemberDTO">
-		SELECT user_id FROM nordia.member WHERE user_id = #{user_id}
+	<!-- 로그인 -->
+	<select id="selectMemberLogin" parameterType="java.util.Map" resultType="com.member.MemberDTO">
+		SELECT * FROM bbs.user
+		WHERE userID = #{userID} AND userPassword = #{userPassword}
 	</select>
-	
-	<!-- 등록 회원 조회 -->
-	<select id="selectMember" parameterType="java.util.Map" resultType="com.nordia.member.MemberDTO">
-		SELECT user_id FROM nordia.member WHERE user_id = #{user_id} AND user_pw = #{user_pw}
-	</select>
-
 </mapper>

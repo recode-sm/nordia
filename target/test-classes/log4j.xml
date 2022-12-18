@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.nordia.dia">
+	<logger name="com.recode.nordia">
 		<level value="info" />
 	</logger>
 	
