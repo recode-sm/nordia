@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.member.MemberMapper">
+	
+	<!-- 게시글 순번 마지막 번호 조회 -->
+	<select id="selectBoardMaxNum" resultType="java.lang.Integer">
+		SELECT IFNULL(MAX(bbsID),0)+1 FROM bbs.bbs
+		WHERE bbsAvailable = 1
+	</select>
+	
+	<!-- 게시글 작성 -->
+	<insert id="insertBoard" parameterType="com.member.MemberDTO">
+		INSERT INTO bbs.bbs (bbsID, bbsTitle, userID, bbsDate, bbsContent)
+		VALUES (#{bbsID}, #{bbsTitle}, #{userID}, NOW(), #{bbsContent})
+	</insert>
+	
+	<!-- 게시글 순번 마지막 번호 조회 -->
+	<select id="selectBoard" resultType="com.board.BoardDTO">
+		SELECT bbsID, bbsTitle, userID, bbsDate, bbsContent FROM bbs.bbs
+		WHERE bbsID = #{bbsID}
+	</select>
+	
+</mapper>
