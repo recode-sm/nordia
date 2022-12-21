@@ -29,6 +29,7 @@ public class BoardController {
 	@RequestMapping(value = "/writeAct", method = RequestMethod.POST)
 	public String joinAct(HttpServletRequest request, HttpServletResponse response,
 			BoardDTO boardDTO) {
+		
 		String userID = (String)request.getSession().getAttribute("userID");
 		int bbsMaxNum = boardSvc.selectBoardMaxNum();
 		boardDTO.setBbsID(bbsMaxNum);
@@ -37,7 +38,7 @@ public class BoardController {
 		return "redirect:/write";
 	}
 	
-	//게시글 보기
+	//페이지 - 게시글 보기
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(HttpServletRequest request, HttpServletResponse response,
 			Model model,
@@ -49,6 +50,29 @@ public class BoardController {
 		model.addAttribute("boardDTO", boardDTO);
 		return "board/view";
 	}
+	
+	//페이지 - 게시글 수정
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(HttpServletRequest request, HttpServletResponse response,
+			Model model,
+			@RequestParam int bbsID) {
+
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO = boardSvc.selectBoard(bbsID);
+		
+		model.addAttribute("boardDTO", boardDTO);
+		return "board/update";
+	}
+		
+	//게시글 수정
+	@RequestMapping(value = "/updateAct", method = RequestMethod.POST)
+	public String updateAct(HttpServletRequest request, HttpServletResponse response,
+			BoardDTO boardDTO) {
+		
+		boardSvc.updateBoard(boardDTO);
+				
+		return "redirect:/main";
+	}	
 	
 	//페이지 - 게시판
 	@RequestMapping(value = "/board", method = RequestMethod.GET)

@@ -24,5 +24,10 @@ public class BoardService {
 	public BoardDTO selectBoard(int boardID) {
 		return session.selectOne("selectBoard", boardID);
 	}
+	
+	//게시글 수정
+	public void updateBoard(BoardDTO boardDTO) {
+		session.update("updateBoard", boardDTO);		
+	}
 
 }

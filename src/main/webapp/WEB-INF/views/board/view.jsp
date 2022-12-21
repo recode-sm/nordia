@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +16,6 @@
 <title>JSP 게시판 웹 사이트</title>
 </head>
 <body>
-
-	<%
-	int bbsID = 0;
-	%>
 	<jsp:include page="../common/navigation.jsp"></jsp:include>	
 	<div class="container">
 		<div class="row">
@@ -54,6 +51,11 @@
 				</tbody>
 			</table>
 			<a href="bbs.jsp" class="btn btn-primary">목록</a>
+			<c:if test="${sessionScope.userID == boardDTO.userID}">
+				<a href="update?bbsID=${boardDTO.bbsID}" class="btn btn-primary">수정</a>
+				<a onclick="return confirm('정말로 삭제하시겠습니까 ?')" href="deleteAction.jsp?bbsID=${boardDTO.bbsID}" class="btn btn-primary">삭제</a>
+			</c:if>
+
 		</div>
 	</div>
 </body>
