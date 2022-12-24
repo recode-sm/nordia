@@ -16,16 +16,16 @@
 		VALUES (#{bbsID}, #{bbsTitle}, #{userID}, NOW(), #{bbsContent})
 	</insert>
 	
-	<!-- 게시글 순번 마지막 번호 조회 -->
+	<!-- 게시글 보기 -->
 	<select id="selectBoard" resultType="com.board.BoardDTO">
 		SELECT bbsID, bbsTitle, userID, bbsDate, bbsContent FROM bbs.bbs
-		WHERE bbsID = #{bbsID}
+		WHERE bbsAvailable = 1 AND bbsID = #{bbsID}
 	</select>
 	
 	<!-- 게시글 수정 -->
 	<update id="updateBoard" parameterType="com.board.BoardDTO">
 		UPDATE bbs.bbs SET bbsTitle = #{bbsTitle}, bbsContent = #{bbsContent}
-		WHERE bbsAvailable = 1 AND bbsID =#{bbsID}
+		WHERE bbsAvailable = 1 AND bbsID = #{bbsID}
 	</update>
 	
 	<!-- 게시글 삭제 -->

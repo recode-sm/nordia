@@ -68,10 +68,12 @@ a, a:hover {
 			<c:if test="${endPage < pageCount }">
 				<a href="${pageContext.request.contextPath}/board?nowPage=${pageVO.startPage+pageVO.pageBlock}">Next</a>
 			</c:if>
-					
-			<div class="pull-right">
-				<a href="write" class="btn btn-primary pull-right">글쓰기</a>
-			</div>
+			
+			<c:if test="${sessionScope.userID != null}">
+				<div class="pull-right">
+					<a href="write" class="btn btn-primary pull-right">글쓰기</a>
+				</div>
+			</c:if>
 		</div>
 	</div>
 </body>

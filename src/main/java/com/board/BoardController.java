@@ -113,7 +113,7 @@ public class BoardController {
 		
 		List<BoardDTO> boardList=boardSvc.selectBoardList(map);		
 		
-		int count=boardSvc.selectBoardCount();				
+		int count = boardSvc.selectBoardCount();				
 		pageVO.pageCalculate(count);
 			
 		model.addAttribute("boardList",boardList);
