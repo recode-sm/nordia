@@ -1,8 +1,13 @@
 package com.board;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.common.PageVO;
 
 @Service
 public class BoardService {
@@ -29,5 +34,22 @@ public class BoardService {
 	public void updateBoard(BoardDTO boardDTO) {
 		session.update("updateBoard", boardDTO);		
 	}
+	
+	//게시글 삭제
+	public void deleteBoard(Map<String, Object> map) {
+		session.update("deleteBoard", map);				
+	}
+	
+	//게시글 리스트
+	public List<BoardDTO> selectBoardList(Map<String, Object> map) {
+		return session.selectList("selectBoardList", map);		
+	}
+	
+	//전체 글 수 조회
+	public int selectBoardCount() {
+		return session.selectOne("selectBoardCount");
+	}
+	
+	
 
 }

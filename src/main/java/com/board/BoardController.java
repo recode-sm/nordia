@@ -1,8 +1,11 @@
 package com.board;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.member.MemberDTO;
+import com.common.PageVO;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
 	private BoardService boardSvc;
+	
+	
 	
 	//페이지 - 게시글 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
@@ -35,7 +40,7 @@ public class BoardController {
 		boardDTO.setBbsID(bbsMaxNum);
 		boardDTO.setUserID(userID);
 		boardSvc.insertBoard(boardDTO);
-		return "redirect:/write";
+		return "redirect:/board";
 	}
 	
 	//페이지 - 게시글 보기
@@ -71,13 +76,49 @@ public class BoardController {
 		
 		boardSvc.updateBoard(boardDTO);
 				
-		return "redirect:/main";
-	}	
+		return "redirect:/board";
+	}
+	
+	//게시글 삭제
+	@RequestMapping(value = "/deleteAct", method = RequestMethod.GET)
+	public String deleteAct(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int bbsID) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bbsID", bbsID);
+		map.put("userID", userID);
+		boardSvc.deleteBoard(map);
+				
+		return "redirect:/board";
+	}
 	
 	//페이지 - 게시판
 	@RequestMapping(value = "/board", method = RequestMethod.GET)
 	public String board(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(defaultValue = "1") int pageNumber) {
+			Model model,
+			@RequestParam(defaultValue = "1") int nowPage) {
+						
+		int pageSize = 10;
+		int pageBlock = 10;
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setPageSize(pageSize);
+		pageVO.setPageBlock(pageBlock);		
+		pageVO.rowCalculate(nowPage);
+				
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("limit", pageSize);
+		map.put("offset", pageVO.getStartRow());
+		
+		List<BoardDTO> boardList=boardSvc.selectBoardList(map);		
+		
+		int count=boardSvc.selectBoardCount();				
+		pageVO.pageCalculate(count);
+			
+		model.addAttribute("boardList",boardList);
+		model.addAttribute("pageVO", pageVO);
+						
 		return "board/board";
 	}
 	

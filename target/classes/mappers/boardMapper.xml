@@ -27,5 +27,25 @@
 		UPDATE bbs.bbs SET bbsTitle = #{bbsTitle}, bbsContent = #{bbsContent}
 		WHERE bbsAvailable = 1 AND bbsID =#{bbsID}
 	</update>
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard" parameterType="java.util.Map">
+		UPDATE bbs.bbs SET bbsAvailable = 0
+		WHERE  bbsID =#{bbsID} AND userID = #{userID}
+	</update>
 		
+	<!-- 게시글 리스트 -->
+	<select id="selectBoardList" parameterType="java.util.Map" resultType="com.board.BoardDTO">
+		SELECT * FROM bbs.bbs
+		WHERE bbsAvailable = 1
+		ORDER BY bbsID DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<!-- 전체 글 수 조회 -->
+	<select id="selectBoardCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM bbs.bbs
+		WHERE bbsAvailable =  1
+	</select>
+
 </mapper>

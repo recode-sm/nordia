@@ -50,10 +50,10 @@
 					</tr>
 				</tbody>
 			</table>
-			<a href="bbs.jsp" class="btn btn-primary">목록</a>
+			<a href="board" class="btn btn-primary">목록</a>
 			<c:if test="${sessionScope.userID == boardDTO.userID}">
 				<a href="update?bbsID=${boardDTO.bbsID}" class="btn btn-primary">수정</a>
-				<a onclick="return confirm('정말로 삭제하시겠습니까 ?')" href="deleteAction.jsp?bbsID=${boardDTO.bbsID}" class="btn btn-primary">삭제</a>
+				<a onclick="return confirm('정말로 삭제하시겠습니까 ?')" href="deleteAct?bbsID=${boardDTO.bbsID}" class="btn btn-primary">삭제</a>
 			</c:if>
 
 		</div>
