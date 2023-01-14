@@ -11,14 +11,14 @@
 	</select>
 	
 	<!-- 게시글 작성 -->
-	<insert id="insertBoard" parameterType="com.member.MemberDTO">
-		INSERT INTO bbs.bbs (bbsID, bbsTitle, userID, bbsDate, bbsContent)
-		VALUES (#{bbsID}, #{bbsTitle}, #{userID}, NOW(), #{bbsContent})
+	<insert id="insertBoard" parameterType="com.board.BoardDTO">
+		INSERT INTO bbs.bbs (bbsID, bbsTitle, userID, bbsDate, bbsContent, file)
+		VALUES (#{bbsID}, #{bbsTitle}, #{userID}, NOW(), #{bbsContent}, #{file})
 	</insert>
 	
 	<!-- 게시글 보기 -->
 	<select id="selectBoard" resultType="com.board.BoardDTO">
-		SELECT bbsID, bbsTitle, userID, bbsDate, bbsContent FROM bbs.bbs
+		SELECT bbsID, bbsTitle, userID, bbsDate, bbsContent, file FROM bbs.bbs
 		WHERE bbsAvailable = 1 AND bbsID = #{bbsID}
 	</select>
 	

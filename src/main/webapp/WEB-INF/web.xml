@@ -45,4 +45,13 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<servlet>
+	    <servlet-name>swagger</servlet-name>
+	    <servlet-class>springfox.documentation.swagger2.web.Swagger2Controller</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>swagger</servlet-name>
+	    <url-pattern>/swagger-ui</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
