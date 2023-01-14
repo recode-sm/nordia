@@ -19,7 +19,7 @@
 	<jsp:include page="../common/navigation.jsp"></jsp:include>	
 	<div class="container">
 		<div class="row">
-			<form method="post" action="writeAct">
+			<form method="post" action="writeAct" enctype="multipart/form-data">
 				<table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
 					<thead>
@@ -36,6 +36,9 @@
 						<tr>
 							<td><textarea class="form-control" placeholder="글 내용"
 									name="bbsContent" maxlength="2048" style="height: 350px;"></textarea></td>
+						</tr>
+						<tr>
+							<td><input type="file" name="file"></td>
 						</tr>
 					</tbody>
 				</table>

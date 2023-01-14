@@ -46,7 +46,11 @@
 						<td>글 내용</td>
 						<td colspan="2" style="min-height: 200px; text-align: left;">
 						${boardDTO.bbsContent}</td>
-
+					</tr>
+					<tr>
+						<td>첨부파일</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;">
+						<a href="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" download>${boardDTO.file}</a></td>
 					</tr>
 				</tbody>
 			</table>

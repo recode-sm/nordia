@@ -7,6 +7,7 @@ public class BoardDTO {
 	private String bbsDate;
 	private String bbsContent;
 	private int bbsAvailable;
+	private String file;
 	
 	public int getBbsID() {
 		return bbsID;
@@ -43,5 +44,11 @@ public class BoardDTO {
 	}
 	public void setBbsAvailable(int bbsAvailable) {
 		this.bbsAvailable = bbsAvailable;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
 	}
 }
